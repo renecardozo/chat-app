@@ -1,0 +1,23 @@
+<div class="right-panel-container">
+  <mat-card>
+    <mat-card-title>Right Panel</mat-card-title>
+    <mat-divider inset></mat-divider>
+    <mat-card-subtitle>
+      <div class="container-message">
+        <button (click)="saveChatHistory()">
+          Save Chat
+        </button>
+      </div>
+    </mat-card-subtitle>
+    <mat-card-content>
+      <div *ngIf="isSaving">
+        <mat-spinner></mat-spinner>
+      </div>
+      <div>
+        <mat-chip-list aria-label="Response server">
+          <mat-chip color="primary" selected *ngIf="message !== ''">{{message}}</mat-chip>
+        </mat-chip-list>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

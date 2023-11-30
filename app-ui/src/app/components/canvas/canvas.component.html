@@ -1,0 +1,58 @@
+<div class="canvas-container">
+  <mat-card>
+    <mat-card-title>Canvas: {{nickname}}</mat-card-title>
+    <mat-divider inset></mat-divider>
+    <mat-card-subtitle>
+      <!-- Action Section -->
+      <div class="container">
+        <div class="grid-container">
+          <div class="grid-item" *ngFor="let message of messages">
+            <div class="message" *ngIf="message.from !== nickname"
+            [ngClass]="{'my_message': message.from === nickname, 'other_message': message.from !== nickname}">
+              <span class="user_name">{{ message.from }}</span>
+              <br>
+              <span>{{ message.message }}</span>
+              <div class="time">{{message.created | date:'dd.MM hh:MM'}}</div>
+            </div>
+            <div class="message" *ngIf="message.from === nickname" 
+            [ngClass]="{'my_message': message.from === nickname, 'other_message': message.from !== nickname}">
+              <span class="user_name">{{ message.from }}:</span>
+              <br>
+              <span>{{ message.message }}</span>
+              <div class="time">{{message.created | date:'dd.MM hh:MM'}}</div>
+            </div>
+          </div>
+        </div>
+        <div class="message_row acction-buttons" *ngIf="userJoined">
+          <input type="text" placeholder="Message" [(ngModel)]="message.message" />
+          <button (click)="sendMessage()" [disabled]="message.message === ''">Send</button>
+        </div>
+        <div class="message_row acction-buttons" *ngIf="!userJoined">
+          <input type="text" [(ngModel)]="nickname" placeholder="Nickname" />
+          <button (click)="joinChat()" [disabled]="nickname === ''">Join Chat as {{ nickname }}</button>
+        </div>
+      </div>
+    </mat-card-subtitle>
+    <mat-card-content >
+      <div *ngFor="let message of messages" style="padding-bottom: 3px;">
+        <mat-grid-list rowHeight="2vh" cols="1">
+          <mat-grid-tile  *ngIf="message.from !== nickname" class="message"
+          [ngClass]="{'my_message': message.from === nickname, 'other_message': message.from !== nickname}">
+            <span class="user_name">{{ message.from }}</span>
+            <br>
+            <span>{{ message.message }}</span>
+            <div class="time">{{message.created | date:'dd.MM hh:MM'}}</div>
+          </mat-grid-tile>
+          <mat-grid-tile *ngIf="message.from === nickname" class="message"
+          [ngClass]="{'my_message': message.from === nickname, 'other_message': message.from !== nickname}">
+            <span class="user_name">{{ message.from }}:</span>
+            <br>
+            <span>{{ message.message }}</span>
+            <div class="time">{{message.created | date:'dd.MM hh:MM'}}</div>
+          </mat-grid-tile>
+        </mat-grid-list>
+      </div>
+      <div></div>
+    </mat-card-content>
+  </mat-card>
+</div>
